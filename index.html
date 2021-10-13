@@ -71,6 +71,122 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-如何用hexo来搭建一个自己的博客" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/12/%E5%A6%82%E4%BD%95%E7%94%A8hexo%E6%9D%A5%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time class="dt-published" datetime="2021-10-12T08:41:02.000Z" itemprop="datePublished">2021-10-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/12/%E5%A6%82%E4%BD%95%E7%94%A8hexo%E6%9D%A5%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">如何用hexo来搭建一个自己的博客（配置后一行命令生成博客）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><ul>
+<li><p>会写markdown</p>
+</li>
+<li><p>配置node环境</p>
+</li>
+<li><p>node环境自带npm市场</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure></li>
+<li><p>完成之后，制定文件夹的目录如下</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── <span class="built_in">source</span></span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="重要文件夹"><a href="#重要文件夹" class="headerlink" title="重要文件夹"></a>重要文件夹</h1><ul>
+<li>_config.yml<ul>
+<li>作用:<ul>
+<li>1.配置发布信息</li>
+<li>2.配置一些静态文件夹目录</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>package.json<ul>
+<li>作用:<ul>
+<li>1.查看一些依赖包</li>
+<li>2.配置一些调试命令行语句(如:npm run build就可以代替hexo generate，如果有yarn就更方便了，直接yarn build)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>source/_posts<ul>
+<li>作用:<ul>
+<li>1.此处是作者真正写作的地方</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h1><h2 id="扩展依赖准备"><a href="#扩展依赖准备" class="headerlink" title="扩展依赖准备"></a>扩展依赖准备</h2><ul>
+<li>目的：让作者在创作的过程中更好的使用体验</li>
+<li>具体依赖:<ul>
+<li>hexo-deployer-git<ul>
+<li>作用：可以直接hexo deploy之后部署到github上</li>
+</ul>
+</li>
+<li>hexo-renderer-marked<ul>
+<li>作用：可以更加爽快的导入图片资源到markdown</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>操作  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git hexo-renderer-marked --save</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="在-config-yml图片资源配置"><a href="#在-config-yml图片资源配置" class="headerlink" title="在_config.yml图片资源配置"></a>在_config.yml图片资源配置</h2><ul>
+<li>图片配置如下<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">post_asset_folder: <span class="literal">true</span></span><br><span class="line">marked:</span><br><span class="line">  prependRoot: <span class="literal">true</span></span><br><span class="line">  postAsset: <span class="literal">true</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="新建一篇文章"><a href="#新建一篇文章" class="headerlink" title="新建一篇文章"></a>新建一篇文章</h2>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&#x27;文章的标题&#x27;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>因为安装了hexo-renderer-marked，所以new的时候会在source/_posts下新建一个markdown文件和一个同名的文件夹，文件夹用来存储相应的markdown中用到的图片资源</li>
+</ul>
+<h2 id="开发环境预览调试"><a href="#开发环境预览调试" class="headerlink" title="开发环境预览调试"></a>开发环境预览调试</h2>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo serve</span><br></pre></td></tr></table></figure>
+<ul>
+<li>执行以上的命令之后，可以登录<b><a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a></b>看到热编译出来的效果，在终端ctrl+c可以停止热编译</li>
+</ul>
+<h2 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h2>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+<ul>
+<li>执行以上的命令之后，目录中生成一个public文件夹，里面就是要被部署到github上的文件</li>
+</ul>
+<h2 id="清楚缓存"><a href="#清楚缓存" class="headerlink" title="清楚缓存"></a>清楚缓存</h2>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行以上命令可以清楚public文件夹<h2 id="部署前准备"><a href="#部署前准备" class="headerlink" title="部署前准备"></a>部署前准备</h2></li>
+<li>在github中创建一个“自己的登录名.github.io”的仓库(建后可以拥有一个github提供的域名地址，地址就是仓库名)</li>
+<li>部署配置如下，在_config.yml中<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line"><span class="built_in">type</span>: git</span><br><span class="line">repo: &lt;仓库地址&gt;(最好用ssh网址)</span><br><span class="line">branch: dev(这里填写分支名，用自己的分支就行)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>以后每次只需要新建，写的时候编译自测下，写完之后部署基本就可以</li>
+<li>注意部署的时候最好清楚一下缓存，这样可以减少一些缓存带来的错误</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/10/12/%E5%A6%82%E4%BD%95%E7%94%A8hexo%E6%9D%A5%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/" data-id="ckuowbgd80000hyci8958520j" data-title="如何用hexo来搭建一个自己的博客（配置后一行命令生成博客）" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-用node搭建属于自己的脚手架" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2021/10/12/%E7%94%A8node%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6/" class="article-date">
@@ -149,7 +265,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/10/12/%E7%94%A8node%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6/" data-id="ckuntzw950000uqcigdwm1lkn" data-title="用node搭建属于自己的脚手架" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/10/12/%E7%94%A8node%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6/" data-id="ckuowbgdc0001hyciggl8hnx0" data-title="用node搭建属于自己的脚手架" class="article-share-link">Share</a>
       
       
       
@@ -190,6 +306,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/10/12/%E5%A6%82%E4%BD%95%E7%94%A8hexo%E6%9D%A5%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">如何用hexo来搭建一个自己的博客（配置后一行命令生成博客）</a>
+          </li>
         
           <li>
             <a href="/2021/10/12/%E7%94%A8node%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6/">用node搭建属于自己的脚手架</a>
