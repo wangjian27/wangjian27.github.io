@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>前端性能优化 | 王阿金的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="为什么要性能优化？ 前端性能优化提升用户使用友好程度和提高用户留存率的一个重要属性，也是一个前端工程师进阶的一个重要指标，所以总结一下性能优化的技巧十分有必要。  性能优化方面细分一、网络请求方面 1.完整的http请求需要经历DNS的查询、tcp的握手等过程，在这个过程中，不仅有DNS服务器解析数据的时间，还有http请求、服务端处理请求并相应、最终返回给客户端的过程。接下来看具体的例子：  结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端性能优化">
+<meta property="og:url" content="http://example.com/2021/10/13/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="王阿金的个人博客">
+<meta property="og:description" content="为什么要性能优化？ 前端性能优化提升用户使用友好程度和提高用户留存率的一个重要属性，也是一个前端工程师进阶的一个重要指标，所以总结一下性能优化的技巧十分有必要。  性能优化方面细分一、网络请求方面 1.完整的http请求需要经历DNS的查询、tcp的握手等过程，在这个过程中，不仅有DNS服务器解析数据的时间，还有http请求、服务端处理请求并相应、最终返回给客户端的过程。接下来看具体的例子：  结">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/10/13/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/2021-10-13-16-16-12.png">
+<meta property="og:image" content="http://example.com/2021/10/13/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/2021-10-13-17-13-25.png">
+<meta property="article:published_time" content="2021-10-13T08:00:20.000Z">
+<meta property="article:modified_time" content="2021-10-13T10:34:16.831Z">
+<meta property="article:author" content="王阿金">
+<meta property="article:tag" content="王阿金的个人博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/10/13/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/2021-10-13-16-16-12.png">
+  
+    <link rel="alternate" href="/atom.xml" title="王阿金的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">王阿金的个人博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-前端性能优化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/13/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="article-date">
+  <time class="dt-published" datetime="2021-10-13T08:00:20.000Z" itemprop="datePublished">2021-10-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      前端性能优化
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="为什么要性能优化？"><a href="#为什么要性能优化？" class="headerlink" title="为什么要性能优化？"></a>为什么要性能优化？</h1><ul>
+<li>前端性能优化提升用户使用友好程度和提高用户留存率的一个重要属性，也是一个前端工程师进阶的一个重要指标，所以总结一下性能优化的技巧十分有必要。</li>
+</ul>
+<h1 id="性能优化方面细分"><a href="#性能优化方面细分" class="headerlink" title="性能优化方面细分"></a>性能优化方面细分</h1><h2 id="一、网络请求方面"><a href="#一、网络请求方面" class="headerlink" title="一、网络请求方面"></a>一、网络请求方面</h2><ul>
+<li>1.完整的http请求需要经历DNS的查询、tcp的握手等过程，在这个过程中，不仅有DNS服务器解析数据的时间，还有http请求、服务端处理请求并相应、最终返回给客户端的过程。接下来看具体的例子：<ul>
+<li><img src="/2021/10/13/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/2021-10-13-16-16-12.png"></li>
+<li>结论：以上是一个接口请求整体耗费的时间，如果减少请求的次数，就会相应的减少DNS查询时间和tcp握手时间。</li>
+</ul>
+</li>
+<li>2.使用http2</li>
+<li>3.SSR</li>
+<li>4.静态资源使用CDN</li>
+<li>5.善于使用缓存</li>
+</ul>
+<h2 id="二、代码层面"><a href="#二、代码层面" class="headerlink" title="二、代码层面"></a>二、代码层面</h2><ul>
+<li>1.尽量把css文件放在头部，js文件放在底部，因为浏览器是单线程工作<ul>
+<li>CSS 执行会阻塞渲染，阻止 JS 执行</li>
+<li>JS 加载和执行会阻塞 HTML 解析，阻止 CSSOM 构建</li>
+</ul>
+</li>
+</ul>
+<p>如果css和js都放在head里，就会导致加载和解析很久，用户就会看到一段空白页面。因此把js放在底部，不阻塞dom的解析。把css放在顶部，让渲染出来的dom都有样式，防止用户看到没有css样式的dom。</p>
+<ul>
+<li>2.减少在循环中使用全局变量<ul>
+<li>使用全局变量<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> iniNum=<span class="number">1</span>;</span></span><br><span class="line"><span class="javascript">    (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> startTime=<span class="keyword">new</span> <span class="built_in">Date</span>()</span></span><br><span class="line"><span class="javascript">        <span class="keyword">while</span>(iniNum&lt;<span class="number">1e9</span>)&#123;</span></span><br><span class="line"><span class="javascript">            iniNum++</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> endTime=<span class="keyword">new</span> <span class="built_in">Date</span>()</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(endTime-startTime)</span></span><br><span class="line"><span class="javascript">    &#125;)()</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>使用局部变量   <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> iniNum=<span class="number">1</span>;</span></span><br><span class="line"><span class="javascript">    (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> startTime=<span class="keyword">new</span> <span class="built_in">Date</span>()</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> _iniNum=iniNum</span></span><br><span class="line"><span class="javascript">        <span class="keyword">while</span>(_iniNum&lt;<span class="number">1e9</span>)&#123;</span></span><br><span class="line"><span class="javascript">            _iniNum++</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">        iniNum=_iniNum</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> endTime=<span class="keyword">new</span> <span class="built_in">Date</span>()</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(endTime-startTime)</span></span><br><span class="line"><span class="javascript">    &#125;)()</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<img src="/2021/10/13/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/2021-10-13-17-13-25.png"></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/10/13/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-id="ckvrr5miq0001wtcidzas050g" data-title="前端性能优化" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/11/09/chrome%E4%B8%8D%E6%94%AF%E6%8C%81%E5%B0%8F%E4%BA%8E12px%E7%9A%84font-size/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          chrome不支持小于12px的font-size
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/10/12/%E5%A6%82%E4%BD%95%E7%94%A8hexo%E6%9D%A5%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">如何用hexo来搭建一个自己的博客（配置后一行命令生成博客）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/11/09/chrome%E4%B8%8D%E6%94%AF%E6%8C%81%E5%B0%8F%E4%BA%8E12px%E7%9A%84font-size/">chrome不支持小于12px的font-size</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/13/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">前端性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/12/%E5%A6%82%E4%BD%95%E7%94%A8hexo%E6%9D%A5%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">如何用hexo来搭建一个自己的博客（配置后一行命令生成博客）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/12/%E7%94%A8node%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6/">用node搭建属于自己的脚手架</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 王阿金<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

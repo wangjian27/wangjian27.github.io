@@ -74,6 +74,121 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-chrome不支持小于12px的font-size" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/09/chrome%E4%B8%8D%E6%94%AF%E6%8C%81%E5%B0%8F%E4%BA%8E12px%E7%9A%84font-size/" class="article-date">
+  <time class="dt-published" datetime="2021-11-09T07:01:12.000Z" itemprop="datePublished">2021-11-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/09/chrome%E4%B8%8D%E6%94%AF%E6%8C%81%E5%B0%8F%E4%BA%8E12px%E7%9A%84font-size/">chrome不支持小于12px的font-size</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="chrome浏览器有默认的最小字体"><a href="#chrome浏览器有默认的最小字体" class="headerlink" title="chrome浏览器有默认的最小字体"></a>chrome浏览器有默认的最小字体</h1><ul>
+<li>谷歌浏览器默认最小字体为12px，小于12px的字体它都以12px显示，有时我们需要字体小点，特别是在制作英文网站时，常常使用CSS样式显示小于12px文字，这样谷歌浏览器就不能显示所设置较小的文字。不过还是有解决方案的。</li>
+<li>背景:<ul>
+<li>最近在移动端开发的时候，使用rem做单位，在某个比较小的文字的时候，在ios模拟机上没有问题，但是切换到安卓机上的时候，由于dpr的变小，字体没有得到相应的变小。但是在相应的安卓真机上却是能够正常缩小的，后来才得知chrome上有这样一个12px最小字体的限制</li>
+</ul>
+</li>
+<li>在html或者body里添加一句谷歌浏览器专有的内核属性样式（或者在需要设置小文字字体对象CSS选择器添加也可）如下CSS代码：  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">html,body&#123;-webkit-text-size-adjust:none;&#125;</span><br></pre></td></tr></table></figure></li>
+<li><span style="color:red;">但是：在某些新的chrome版本上无效！</span>我们可以使用到 css3里的一个属性：transform:scale()。这个属性前给-webkit-谷歌前缀，那么就可以控制字体的大小，代码如下：<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span>&#123;<span class="attribute">font-size</span>:<span class="number">10px</span>;-webkit-<span class="attribute">transform</span>:<span class="built_in">scale</span>(<span class="number">0.8</span>);&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/09/chrome%E4%B8%8D%E6%94%AF%E6%8C%81%E5%B0%8F%E4%BA%8E12px%E7%9A%84font-size/" data-id="ckvrr5mim0000wtci3jdz2xsr" data-title="chrome不支持小于12px的font-size" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-前端性能优化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/13/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="article-date">
+  <time class="dt-published" datetime="2021-10-13T08:00:20.000Z" itemprop="datePublished">2021-10-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/13/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">前端性能优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="为什么要性能优化？"><a href="#为什么要性能优化？" class="headerlink" title="为什么要性能优化？"></a>为什么要性能优化？</h1><ul>
+<li>前端性能优化提升用户使用友好程度和提高用户留存率的一个重要属性，也是一个前端工程师进阶的一个重要指标，所以总结一下性能优化的技巧十分有必要。</li>
+</ul>
+<h1 id="性能优化方面细分"><a href="#性能优化方面细分" class="headerlink" title="性能优化方面细分"></a>性能优化方面细分</h1><h2 id="一、网络请求方面"><a href="#一、网络请求方面" class="headerlink" title="一、网络请求方面"></a>一、网络请求方面</h2><ul>
+<li>1.完整的http请求需要经历DNS的查询、tcp的握手等过程，在这个过程中，不仅有DNS服务器解析数据的时间，还有http请求、服务端处理请求并相应、最终返回给客户端的过程。接下来看具体的例子：<ul>
+<li><img src="/2021/10/13/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/2021-10-13-16-16-12.png"></li>
+<li>结论：以上是一个接口请求整体耗费的时间，如果减少请求的次数，就会相应的减少DNS查询时间和tcp握手时间。</li>
+</ul>
+</li>
+<li>2.使用http2</li>
+<li>3.SSR</li>
+<li>4.静态资源使用CDN</li>
+<li>5.善于使用缓存</li>
+</ul>
+<h2 id="二、代码层面"><a href="#二、代码层面" class="headerlink" title="二、代码层面"></a>二、代码层面</h2><ul>
+<li>1.尽量把css文件放在头部，js文件放在底部，因为浏览器是单线程工作<ul>
+<li>CSS 执行会阻塞渲染，阻止 JS 执行</li>
+<li>JS 加载和执行会阻塞 HTML 解析，阻止 CSSOM 构建</li>
+</ul>
+</li>
+</ul>
+<p>如果css和js都放在head里，就会导致加载和解析很久，用户就会看到一段空白页面。因此把js放在底部，不阻塞dom的解析。把css放在顶部，让渲染出来的dom都有样式，防止用户看到没有css样式的dom。</p>
+<ul>
+<li>2.减少在循环中使用全局变量<ul>
+<li>使用全局变量<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> iniNum=<span class="number">1</span>;</span></span><br><span class="line"><span class="javascript">    (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> startTime=<span class="keyword">new</span> <span class="built_in">Date</span>()</span></span><br><span class="line"><span class="javascript">        <span class="keyword">while</span>(iniNum&lt;<span class="number">1e9</span>)&#123;</span></span><br><span class="line"><span class="javascript">            iniNum++</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> endTime=<span class="keyword">new</span> <span class="built_in">Date</span>()</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(endTime-startTime)</span></span><br><span class="line"><span class="javascript">    &#125;)()</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>使用局部变量   <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> iniNum=<span class="number">1</span>;</span></span><br><span class="line"><span class="javascript">    (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> startTime=<span class="keyword">new</span> <span class="built_in">Date</span>()</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> _iniNum=iniNum</span></span><br><span class="line"><span class="javascript">        <span class="keyword">while</span>(_iniNum&lt;<span class="number">1e9</span>)&#123;</span></span><br><span class="line"><span class="javascript">            _iniNum++</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">        iniNum=_iniNum</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> endTime=<span class="keyword">new</span> <span class="built_in">Date</span>()</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(endTime-startTime)</span></span><br><span class="line"><span class="javascript">    &#125;)()</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<img src="/2021/10/13/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/2021-10-13-17-13-25.png"></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/10/13/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-id="ckvrr5miq0001wtcidzas050g" data-title="前端性能优化" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-如何用hexo来搭建一个自己的博客" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2021/10/12/%E5%A6%82%E4%BD%95%E7%94%A8hexo%E6%9D%A5%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/" class="article-date">
@@ -302,7 +417,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li></ul>
     </div>
   </div>
 
@@ -313,6 +428,14 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/11/09/chrome%E4%B8%8D%E6%94%AF%E6%8C%81%E5%B0%8F%E4%BA%8E12px%E7%9A%84font-size/">chrome不支持小于12px的font-size</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/13/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">前端性能优化</a>
+          </li>
         
           <li>
             <a href="/2021/10/12/%E5%A6%82%E4%BD%95%E7%94%A8hexo%E6%9D%A5%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">如何用hexo来搭建一个自己的博客（配置后一行命令生成博客）</a>
