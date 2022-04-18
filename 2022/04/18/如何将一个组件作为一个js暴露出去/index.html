@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>如何将一个组件作为一个js暴露出去 | 王阿金的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="方式一:render 函数 写一个函数,传参是 Vue 对象  写一个对象,在对象之中写上 render 函数来控制渲染  最后通过类似:Vue.component(‘stock-list’, options);的像是挂载  使用的时候,Vue.use(函数名)  例子:  &#96;&#96;&#96;jsconst StockList &#x3D; function (Vue) {  let Scroller &#x3D; null;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何将一个组件作为一个js暴露出去">
+<meta property="og:url" content="http://example.com/2022/04/18/%E5%A6%82%E4%BD%95%E5%B0%86%E4%B8%80%E4%B8%AA%E7%BB%84%E4%BB%B6%E4%BD%9C%E4%B8%BA%E4%B8%80%E4%B8%AAjs%E6%9A%B4%E9%9C%B2%E5%87%BA%E5%8E%BB/index.html">
+<meta property="og:site_name" content="王阿金的个人博客">
+<meta property="og:description" content="方式一:render 函数 写一个函数,传参是 Vue 对象  写一个对象,在对象之中写上 render 函数来控制渲染  最后通过类似:Vue.component(‘stock-list’, options);的像是挂载  使用的时候,Vue.use(函数名)  例子:  &#96;&#96;&#96;jsconst StockList &#x3D; function (Vue) {  let Scroller &#x3D; null;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-18T11:22:40.000Z">
+<meta property="article:modified_time" content="2022-04-18T11:30:46.271Z">
+<meta property="article:author" content="王阿金">
+<meta property="article:tag" content="王阿金的个人博客">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="王阿金的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">王阿金的个人博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-如何将一个组件作为一个js暴露出去" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/04/18/%E5%A6%82%E4%BD%95%E5%B0%86%E4%B8%80%E4%B8%AA%E7%BB%84%E4%BB%B6%E4%BD%9C%E4%B8%BA%E4%B8%80%E4%B8%AAjs%E6%9A%B4%E9%9C%B2%E5%87%BA%E5%8E%BB/" class="article-date">
+  <time class="dt-published" datetime="2022-04-18T11:22:40.000Z" itemprop="datePublished">2022-04-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      如何将一个组件作为一个js暴露出去
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="方式一-render-函数"><a href="#方式一-render-函数" class="headerlink" title="方式一:render 函数"></a>方式一:render 函数</h2><ul>
+<li><p>写一个函数,传参是 Vue 对象</p>
+</li>
+<li><p>写一个对象,在对象之中写上 render 函数来控制渲染</p>
+</li>
+<li><p>最后通过类似:Vue.component(‘stock-list’, options);的像是挂载</p>
+</li>
+<li><p>使用的时候,Vue.use(函数名)</p>
+</li>
+<li><p>例子:</p>
+</li>
+<li><p>```js<br>const StockList = function (Vue) {<br>  let Scroller = null;<br>  const options = {</p>
+<pre><code>props: [
+  &quot;list&quot;,
+  &quot;unit&quot;,
+  &quot;fixed&quot;,
+  &quot;expand&quot;,
+  &quot;menuHeight&quot;,
+  &quot;sortMethod&quot;,
+  &quot;fixedHead&quot;,
+  &quot;stockTag&quot;,
+  &quot;blackStyle&quot;,
+  &quot;chooseFont&quot;,
+  &quot;defaultSortName&quot;,
+  &quot;chooseFontStatusMore&quot;,
+  &quot;condition&quot;,
+  &quot;nowChoose&quot;,
+  &quot;tableHeight&quot;,
+],
+data() &#123;
+  return &#123;
+    props: [],
+    propKeys: &#123;&#125;,
+    showShadow: false,
+    currentSortTag: 0,
+    currentSortKey: this.defaultSortName,
+    position: &quot;absolute&quot;,
+    showCancelButton: false,
+  &#125;;
+&#125;,
+watch: &#123;
+  /* 用于初始化横向滚动位置 */
+  $route() &#123;
+    this.$nextTick(() =&gt; &#123;
+      const &#123; stockListScroller &#125; = this.$refs;
+      stockListScroller.scrollLeft = 0;
+      this.showShadow = false;
+    &#125;);
+  &#125;,
+  stockTag() &#123;
+    this.$nextTick(() =&gt; &#123;
+      const &#123; stockListScroller &#125; = this.$refs;
+      stockListScroller.scrollLeft = 0;
+      this.showShadow = false;
+    &#125;);
+  &#125;,
+&#125;,
+methods: &#123;
+  sort(sortKey, defaultSort, sortable) &#123;
+    if (!sortable) return;
+    if (this.currentSortKey !== sortKey) &#123;
+      this.currentSortTag = 0;
+    &#125;
+    if (defaultSort) &#123;
+      this.currentSortTag++;
+    &#125;
+    this.showCancelButton = true;
+    this.currentSortKey = sortKey;
+    this.currentSortTag++;
+    if (this.currentSortTag % 2 === 1) &#123;
+      this.sortMethod(&quot;DESC&quot;, sortKey);
+      this.$emit(&quot;setSortChanged&quot;);
+    &#125; else if (this.currentSortTag % 2 === 0) &#123;
+      this.sortMethod(&quot;ASC&quot;, sortKey);
+      this.$emit(&quot;setSortChanged&quot;);
+    &#125;
+  &#125;,
+&#125;,
+// 列表组件
+render(h) &#123;
+  // 防止异步请求未完成但是已经开始渲染而造成的控制台报错
+  if (!this.$slots.default) return;
+  //展开收起事件
+  const expandRow = (row) =&gt; &#123;
+    this.$emit(&quot;clickRow&quot;, row);
+  &#125;;
+  //展开收起的插槽menu
+  const menu = (scope, isShow) =&gt;
+    h(
+      &quot;div&quot;,
+      &#123;
+        class: &quot;stock-list-menu&quot;,
+        style: `$&#123;
+          isShow ? &quot;position: relative;z-index:10;&quot; : &quot;&quot;
+        &#125;; opacity: $&#123;isShow ? &quot;1&quot; : &quot;0&quot;&#125;;`,
+      &#125;,
+      [
+        this.$slots.default[0].data.scopedSlots &amp;&amp;
+          this.$slots.default[0].data.scopedSlots.menu(scope),
+      ]
+    );
+  // 左部头, 默认为第一列StockListItem
+  const cancelButton = h(
+    &quot;th&quot;,
+    &#123;
+      class: &quot; hxm-row-border title-font nameTitle&quot;,
+      style: &quot;height: 0.72rem; width: 1.96rem;&quot;,
+      on: &#123;
+        click: () =&gt; &#123;
+          this.$emit(&quot;setSortChanged&quot;);
+          this.showCancelButton = false;
+          this.currentSortTag = 0;
+          this.$emit(&quot;resetList&quot;);
+        &#125;,
+      &#125;,
+    &#125;,
+    [
+      h(
+        &quot;div&quot;,
+        &#123;
+          class: &quot;hxm-thead hxmAlignCenter&quot;,
+        &#125;,
+        [
+          h(
+            &quot;p&quot;,
+            &#123;
+              style: &quot;color:white&quot;,
+            &#125;,
+            [&quot;取消排序&quot;]
+          ),
+        ]
+      ),
+    ]
+  );
+  const leftThead = h(
+    &quot;thead&quot;,
+    &#123;
+      class: &quot;stock-list-lth&quot;,
+      style: `background-color:$&#123;
+        this.showCancelButton ? &quot;#FD4332;&quot; : &quot;&quot;
+      &#125;`,
+    &#125;,
+    [
+      h(&quot;tr&quot;, &#123;&#125;, [
+        this.showCancelButton ? cancelButton : this.$slots.default[0],
+      ]),
+    ]
+  );
+  // 左部体, 默认为第一列StockListItem
+  const leftTbody = this.list.map((row) =&gt; &#123;
+    if (!this.props.length) return;
+    let content = h(&quot;p&quot;, row[this.props[0].key]);
+    // 如果有插槽就将插槽塞进去
+    if (this.$slots.default[0].componentOptions.children) &#123;
+      content =
+        this.$slots.default[0].componentOptions.children[0].data.scopedSlots.default(
+          row
+        );
+    &#125;
+    return h(
+      &quot;tr&quot;,
+      &#123;
+        on: &#123;
+          click: () =&gt; &#123;
+            expandRow(row);
+          &#125;,
+        &#125;,
+      &#125;,
+      [
+        h(
+          &quot;td&quot;,
+          &#123; class: &quot;tbody-font hxm-row-border&quot; &#125;,
+          row.expand
+            ? [h(&quot;div&quot;, &#123;&#125;, [content]), menu(row, true)]
+            : [h(&quot;div&quot;, &#123;&#125;, [content])]
+        ),
+      ]
+    );
+  &#125;);
+  // 将写好的头和体塞进去
+  const leftTable = h(
+    &quot;table&quot;,
+    &#123;
+      class: [
+        &quot;stock-list-ltb&quot;,
+        this.showShadow &amp;&amp; &quot;stock-list-shadow&quot;,
+        `$&#123;
+          this.blackStyle === 1
+            ? &quot;stock-list-ltb-white&quot;
+            : &quot;stock-list-ltb-black&quot;
+        &#125;`,
+      ],
+      style: `width: $&#123;this.$slots.default[0].componentOptions.propsData.labelWidth&#125;; display: flex; flex-direction: column;`,
+    &#125;,
+    [h(&quot;tbody&quot;, &#123;&#125;, leftTbody)]
+  );
+  const rightSlots = this.$slots.default.filter(
+    (slot, index) =&gt; index &amp;&amp; slot.tag
+  );
+  const rightProps = this.$slots.default.slice(1);
+  const rightThead = h(
+    &quot;thead&quot;,
+    &#123;
+      class: &quot;stock-list-rth&quot;,
+    &#125;,
+    [h(&quot;tr&quot;, &#123;&#125;, rightSlots)]
+  );
+  const rightTableWidth = rightProps.reduce(
+    (pre, next) =&gt;
+      pre + parseFloat(next.componentOptions.propsData.labelWidth),
+    0
+  );
+  const rightTbody = this.list.map((row) =&gt; &#123;
+    const cells = rightSlots.map((slot, index) =&gt; &#123;
+      const key = rightProps[index] &amp;&amp; rightProps[index].key;
+      let content = h(&quot;p&quot;, row[key]);
+      // 如果有插槽则将插槽塞入每行, 如果没有插槽则将&lt;p&gt;&#123;&#123;row[key]&#125;&#125;&lt;/&gt;塞入插槽
+      if (slot.componentOptions.children) &#123;
+        content =
+          slot.componentOptions.children[0].data.scopedSlots.default(row);
+      &#125;
+      //留出expand行的位置
+      const currentColumn =
+        this.$slots.default[index + 1].componentOptions.propsData;
+      return h(
+        &quot;td&quot;,
+        &#123;
+          class: &quot;tbody-font hxm-row-border&quot;,
+          style: ` width: $&#123;currentColumn.labelWidth&#125;;`,
+        &#125;,
+        row.expand
+          ? [
+              h(
+                &quot;div&quot;,
+                &#123;
+                  style: `text-align: $&#123;currentColumn.labelAlign&#125;;`,
+                &#125;,
+                [content]
+              ),
+              menu(row),
+            ]
+          : [
+              h(
+                &quot;div&quot;,
+                &#123;
+                  style: `text-align: $&#123;
+                    this.$slots.default[index + 1].componentOptions
+                      .propsData.labelAlign
+                  &#125;;`,
+                &#125;,
+                [content]
+              ),
+            ]
+      );
+    &#125;);
+    return h(
+      &quot;tr&quot;,
+      &#123;
+        on: &#123;
+          click: () =&gt; &#123;
+            expandRow(row);
+          &#125;,
+        &#125;,
+      &#125;,
+      cells
+    );
+  &#125;);
+  // 将生成好的dom函数塞入
+  const rightTable = h(
+    &quot;table&quot;,
+    &#123;
+      class: `stock-list-rtb $&#123;
+        this.blackStyle === 1
+          ? &quot;stock-list-rtb-white&quot;
+          : &quot;stock-list-rtb-black&quot;
+      &#125;`,
+      style: `width: $&#123;rightTableWidth + (this.unit || &quot;rem&quot;)&#125;;`,
+    &#125;,
+    [h(&quot;tbody&quot;, &#123;&#125;, rightTbody)]
+  );
+  // 小箭头
+  const lookScrollIcon = h(
+    &quot;i&quot;,
+    &#123;
+      class: `icon-look-scroll`,
+      style: `display: $&#123;
+        this.showShadow ? &quot;none&quot; : &quot;inline-block&quot;
+      &#125;;position:$&#123;this.position&#125;`,
+    &#125;,
+    &quot;&quot;
+  );
+  const isScrollX =
+    Number(rightTableWidth) +
+      Number(
+        this.$slots.default[0].componentOptions.propsData.labelWidth.split(
+          &quot;rem&quot;
+        )[0]
+      ) &gt;
+    6.86;
+  // 生成吸顶头
+  const fixedHead = h(
+    &quot;div&quot;,
+    &#123;
+      class: [&quot;stock-list stock-list-fixedhead&quot;],
+      style: `background-color:$&#123;
+        this.blackStyle === 1 ? &quot;#ffffff&quot; : &quot;#1a1a1a&quot;
+      &#125;;`,
+      ref: &quot;fixedHead&quot;,
+    &#125;,
+    [
+      isScrollX &amp;&amp; lookScrollIcon,
+      h(
+        &quot;table&quot;,
+        &#123;
+          class: [
+            &quot;stock-list-ltb&quot;,
+            this.showShadow &amp;&amp; &quot;stock-list-fixed-shadow&quot;,
+          ],
+          style: &quot;margin-left:0;&quot;,
+        &#125;,
+        [leftThead]
+      ),
+      h(
+        &quot;div&quot;,
+        &#123;
+          class: &quot;stock-list-scroller&quot;,
+          ref: &quot;fixedHeadScroller&quot;,
+          on: &#123;
+            scroll: (evt) =&gt; &#123;
+              if (!Scroller) &#123;
+                Scroller = evt.target;
+              &#125; else if (Scroller !== evt.target) &#123;
+                Scroller = null;
+                return;
+              &#125;
+              const &#123; scrollLeft &#125; = evt.target;
+              const &#123; stockListScroller &#125; = this.$refs;
+              stockListScroller.scrollLeft = scrollLeft;
+              if (scrollLeft) &#123;
+                this.showShadow = true;
+              &#125; else &#123;
+                this.showShadow = false;
+              &#125;
+            &#125;,
+          &#125;,
+        &#125;,
+        [
+          h(
+            &quot;table&quot;,
+            &#123;
+              style: `width: $&#123;rightTableWidth + (this.unit || &quot;rem&quot;)&#125;`,
+            &#125;,
+            [rightThead]
+          ),
+        ]
+      ),
+    ]
+  );
+  // 这部分是右滑部分
+  const scroller = h(
+    &quot;div&quot;,
+    &#123;
+      class: &quot;stock-list-scroller&quot;,
+      ref: &quot;stockListScroller&quot;,
+      on: &#123;
+        scroll: (evt) =&gt; &#123;
+          if (!Scroller) &#123;
+            Scroller = evt.target;
+          &#125; else if (Scroller !== evt.target) &#123;
+            Scroller = null;
+            return;
+          &#125;
+          const &#123; scrollLeft &#125; = evt.target;
+          // 因为现在只渲染fixedHead,所以将下面这条if去除,防止左滑表头不起效果
+          const &#123; fixedHeadScroller &#125; = this.$refs;
+          fixedHeadScroller.scrollLeft = scrollLeft;
+          if (scrollLeft) &#123;
+            this.showShadow = true;
+          &#125; else &#123;
+            this.showShadow = false;
+          &#125;
+        &#125;,
+      &#125;,
+    &#125;,
+    [rightTable]
+  );
+  // 加载中和加载完成字样插槽
+  const result = h(
+    &quot;div&quot;,
+    &#123;
+      class: [&quot;stock-list table-style&quot;],
+      ref: &quot;stockList&quot;,
+    &#125;,
+    [leftTable, scroller]
+  );
+
+  const parentDiv = h(
+    &quot;div&quot;,
+    &#123;
+      class: &quot;list-table&quot;,
+      style: this.tableHeight,
+      ref: &quot;listTable&quot;,
+    &#125;,
+    [result]
+  );
+  return h(&quot;div&quot;, &#123; class: &quot;stock-list-content&quot; &#125;, [
+    fixedHead,
+    parentDiv,
+  ]);
+&#125;,
+</code></pre>
+<p>  };<br>  Vue.component(“stock-list”, options);<br>};</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- ```</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="方式二-template-方式"><a href="#方式二-template-方式" class="headerlink" title="方式二:template 方式"></a>方式二:template 方式</h2><ul>
+<li>只改变渲染方式</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/04/18/%E5%A6%82%E4%BD%95%E5%B0%86%E4%B8%80%E4%B8%AA%E7%BB%84%E4%BB%B6%E4%BD%9C%E4%B8%BA%E4%B8%80%E4%B8%AAjs%E6%9A%B4%E9%9C%B2%E5%87%BA%E5%8E%BB/" data-id="cl24mytev0000wsci66868wh3" data-title="如何将一个组件作为一个js暴露出去" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/01/21/node%E7%89%88%E6%9C%AC%E5%88%87%E6%8D%A2%E5%88%A9%E5%99%A8-n/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">node版本切换利器--n</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF-%E5%AE%9E%E7%8E%B0%E7%9C%9F%E6%AD%A3%E7%9A%84%E7%BC%9D%E5%90%88%E6%80%AA/" rel="tag">微前端,实现真正的缝合怪</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF-%E5%AE%9E%E7%8E%B0%E7%9C%9F%E6%AD%A3%E7%9A%84%E7%BC%9D%E5%90%88%E6%80%AA/" style="font-size: 10px;">微前端,实现真正的缝合怪</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/04/18/%E5%A6%82%E4%BD%95%E5%B0%86%E4%B8%80%E4%B8%AA%E7%BB%84%E4%BB%B6%E4%BD%9C%E4%B8%BA%E4%B8%80%E4%B8%AAjs%E6%9A%B4%E9%9C%B2%E5%87%BA%E5%8E%BB/">如何将一个组件作为一个js暴露出去</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/21/node%E7%89%88%E6%9C%AC%E5%88%87%E6%8D%A2%E5%88%A9%E5%99%A8-n/">node版本切换利器--n</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/%E5%90%8C%E8%8A%B1%E9%A1%BA%E8%90%BD%E5%9C%B0%E5%BE%AE%E5%89%8D%E7%AB%AF/">同花顺落地微前端</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/%E8%AE%A9%E4%BD%A0%E5%9C%A8%E4%BB%A3%E7%90%86%E9%87%8C%E8%B7%91%E6%B5%8F%E8%A7%88%E5%99%A8-puppeteer/">让你在代理里跑浏览器--puppeteer</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/09/%E9%AB%98%E6%80%A7%E8%83%BD%E6%B8%B2%E6%9F%93%E9%95%BF%E5%88%97%E8%A1%A8/">高性能渲染长列表</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 王阿金<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

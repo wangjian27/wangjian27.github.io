@@ -6,17 +6,17 @@
   
   <title>同花顺落地微前端 | 王阿金的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="常见的三种微前端实现方式 使用 iframe 组合 服务端模板渲染组合 微前端框架 single-spa">
+  <meta name="description" content="常见的三种微前端实现方式 (1)路由分发式。通过HTTP服务器的反向代理功能，将请求路由到对应的应用上。 (2)前端微服务化。在不同的框架之上设计通信和加载机制，以在一个页面内加载对应的应用。 (3)微应用。通过软件工程的方式，在部署构建环境中，把多个独立的应用组合成一个单体应用。 (4)微件化。开发一个新的构建系统，将部分业务功能构建成一个独立的chunk代码，使用时只需要远程加载即可。 (5)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="同花顺落地微前端">
 <meta property="og:url" content="http://example.com/2022/01/19/%E5%90%8C%E8%8A%B1%E9%A1%BA%E8%90%BD%E5%9C%B0%E5%BE%AE%E5%89%8D%E7%AB%AF/index.html">
 <meta property="og:site_name" content="王阿金的个人博客">
-<meta property="og:description" content="常见的三种微前端实现方式 使用 iframe 组合 服务端模板渲染组合 微前端框架 single-spa">
+<meta property="og:description" content="常见的三种微前端实现方式 (1)路由分发式。通过HTTP服务器的反向代理功能，将请求路由到对应的应用上。 (2)前端微服务化。在不同的框架之上设计通信和加载机制，以在一个页面内加载对应的应用。 (3)微应用。通过软件工程的方式，在部署构建环境中，把多个独立的应用组合成一个单体应用。 (4)微件化。开发一个新的构建系统，将部分业务功能构建成一个独立的chunk代码，使用时只需要远程加载即可。 (5)">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-01-19T03:06:30.000Z">
-<meta property="article:modified_time" content="2022-01-19T03:12:26.277Z">
+<meta property="article:modified_time" content="2022-01-19T05:42:55.966Z">
 <meta property="article:author" content="王阿金">
-<meta property="article:tag" content="王阿金的个人博客">
+<meta property="article:tag" content="微前端,实现真正的缝合怪">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="王阿金的个人博客" type="application/atom+xml">
@@ -97,23 +97,44 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h2 id="常见的三种微前端实现方式"><a href="#常见的三种微前端实现方式" class="headerlink" title="常见的三种微前端实现方式"></a>常见的三种微前端实现方式</h2><ul>
-<li>使用 iframe 组合</li>
-<li>服务端模板渲染组合</li>
-<li>微前端框架 single-spa</li>
+<li>(1)路由分发式。通过HTTP服务器的反向代理功能，将请求路由到对应的应用上。</li>
+<li>(2)前端微服务化。在不同的框架之上设计通信和加载机制，以在一个页面内加载对应的应用。</li>
+<li>(3)微应用。通过软件工程的方式，在部署构建环境中，把多个独立的应用组合成一个单体应用。</li>
+<li>(4)微件化。开发一个新的构建系统，将部分业务功能构建成一个独立的chunk代码，使用时只需要远程加载即可。</li>
+<li>(5) 前端容器化。将iframe作为容器来容纳其他前端应用。</li>
+<li>(6) 应用组件化。借助于Web Components技术，来构建跨框架的前端应用。</li>
+</ul>
+<h2 id="微前端的技术分类"><a href="#微前端的技术分类" class="headerlink" title="微前端的技术分类"></a>微前端的技术分类</h2><ul>
+<li>single-spa</li>
+<li>qiankun<ul>
+<li>qiankun框架就是基于single-spa来实现的，在single-spa的基础上做了一层封装，也解决了single-spa的一些缺陷。</li>
+</ul>
+</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/01/19/%E5%90%8C%E8%8A%B1%E9%A1%BA%E8%90%BD%E5%9C%B0%E5%BE%AE%E5%89%8D%E7%AB%AF/" data-id="ckykyz9bi000363ci1f9kcxb2" data-title="同花顺落地微前端" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/01/19/%E5%90%8C%E8%8A%B1%E9%A1%BA%E8%90%BD%E5%9C%B0%E5%BE%AE%E5%89%8D%E7%AB%AF/" data-id="cl24mgw420004iacif3mwb6p4" data-title="同花顺落地微前端" class="article-share-link">Share</a>
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF-%E5%AE%9E%E7%8E%B0%E7%9C%9F%E6%AD%A3%E7%9A%84%E7%BC%9D%E5%90%88%E6%80%AA/" rel="tag">微前端,实现真正的缝合怪</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
+  
+    <a href="/2022/01/21/node%E7%89%88%E6%9C%AC%E5%88%87%E6%8D%A2%E5%88%A9%E5%99%A8-n/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          node版本切换利器--n
+        
+      </div>
+    </a>
   
   
     <a href="/2022/01/19/%E8%AE%A9%E4%BD%A0%E5%9C%A8%E4%BB%A3%E7%90%86%E9%87%8C%E8%B7%91%E6%B5%8F%E8%A7%88%E5%99%A8-puppeteer/" id="article-nav-older" class="article-nav-link-wrap">
@@ -135,15 +156,29 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF-%E5%AE%9E%E7%8E%B0%E7%9C%9F%E6%AD%A3%E7%9A%84%E7%BC%9D%E5%90%88%E6%80%AA/" rel="tag">微前端,实现真正的缝合怪</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF-%E5%AE%9E%E7%8E%B0%E7%9C%9F%E6%AD%A3%E7%9A%84%E7%BC%9D%E5%90%88%E6%80%AA/" style="font-size: 10px;">微前端,实现真正的缝合怪</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li></ul>
     </div>
   </div>
 
@@ -156,6 +191,14 @@
       <ul>
         
           <li>
+            <a href="/2022/04/18/%E5%A6%82%E4%BD%95%E5%B0%86%E4%B8%80%E4%B8%AA%E7%BB%84%E4%BB%B6%E4%BD%9C%E4%B8%BA%E4%B8%80%E4%B8%AAjs%E6%9A%B4%E9%9C%B2%E5%87%BA%E5%8E%BB/">如何将一个组件作为一个js暴露出去</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/21/node%E7%89%88%E6%9C%AC%E5%88%87%E6%8D%A2%E5%88%A9%E5%99%A8-n/">node版本切换利器--n</a>
+          </li>
+        
+          <li>
             <a href="/2022/01/19/%E5%90%8C%E8%8A%B1%E9%A1%BA%E8%90%BD%E5%9C%B0%E5%BE%AE%E5%89%8D%E7%AB%AF/">同花顺落地微前端</a>
           </li>
         
@@ -165,14 +208,6 @@
         
           <li>
             <a href="/2021/11/09/%E9%AB%98%E6%80%A7%E8%83%BD%E6%B8%B2%E6%9F%93%E9%95%BF%E5%88%97%E8%A1%A8/">高性能渲染长列表</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/09/flex%E5%B8%83%E5%B1%80%E5%92%8Ctext-overflow-ellipsis%E4%B8%80%E8%B5%B7%E7%94%A8%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/">flex布局和text-overflow:ellipsis一起用失效的问题</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/09/chrome%E4%B8%8D%E6%94%AF%E6%8C%81%E5%B0%8F%E4%BA%8E12px%E7%9A%84font-size/">chrome不支持小于12px的font-size</a>
           </li>
         
       </ul>
